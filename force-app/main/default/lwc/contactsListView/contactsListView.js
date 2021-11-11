@@ -1,30 +1,20 @@
 import { LightningElement, api } from 'lwc';
 import fetchAllContacts from '@salesforce/apex/LWCContactsController.fetchAllContacts';
 import deleteContact from '@salesforce/apex/LWCContactsController.deleteContact';
+import {cols, acts} from './tableHelper';
 
-const actions = [
-    { label: 'Edit', name: 'edit' },
-    { label: 'Delete', name: 'delete' },
-];
-
-
-const columns = [
-    { label: 'Id', fieldName: 'Id', type:'text' },
-    { label: 'Name', fieldName: 'Name', type: 'text' },
-    { label: 'Phone', fieldName: 'Phone', type: 'text' },
-    { label: 'Status__c', fieldName: 'Status__c' },
-    { label: 'Email', fieldName: 'Email', type: 'text' },
-    { label: 'AccountId', fieldName: 'AccountId', type: 'text' },
-    { type: 'action', typeAttributes: { rowActions: actions } }
-    
-];
-
+const columns = cols;
 
 
 export default class ContactsListView extends LightningElement {
+
+    @api loaded = false;
+
     @api handleRefreshList(){
+        this.loaded = false;
         fetchAllContacts()
         .then(result => {
+            this.loaded = true;
             this.data = result;
             console.log('list refreshed');
         })
@@ -39,14 +29,14 @@ export default class ContactsListView extends LightningElement {
     connectedCallback(){
         fetchAllContacts()
         .then(result => {
+            this.loaded = true;
             this.data = result;
         })
         .catch(error => {
+            this.loaded = true;
             this.error = error;
         });
-
     }
-    
 
     handleRowAction(event)
     {

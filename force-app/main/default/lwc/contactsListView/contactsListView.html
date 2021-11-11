@@ -1,10 +1,18 @@
 <template>
-    <div style="height: 300px;">
-        <lightning-datatable
-                key-field="id"
-                data={data}
-                columns={columns}
-                onrowaction={handleRowAction}>
-        </lightning-datatable>
+    
+    <div class="exampleHolder">
+        <template if:true={loaded}>
+            <div style="height: 300px;">
+                <lightning-datatable
+                        key-field="id"
+                        data={data}
+                        columns={columns}
+                        onrowaction={handleRowAction}>
+                </lightning-datatable>
+            </div>
+        </template>
+        <template if:false={loaded}>
+            <lightning-spinner alternative-text="Loading"></lightning-spinner>
+        </template>
     </div>
 </template>

@@ -16,7 +16,6 @@ export default class CustomLookup extends LightningElement {
     @api className;
     @api required = false;
     @track searchString;
-    //@api selectedRecord;
     @track selectedRecord;
     @track recordsList;
     @track message;
@@ -46,11 +45,6 @@ export default class CustomLookup extends LightningElement {
                 this.selectedRecord = this.recordsList[index];
                 this.value = this.selectedRecord.value;
                 console.log(this.value);
-                //console.log('selected record value is: '+this.selectedRecord.label);
-                //this.selectedRecord.label = 'wadaaa';
-                //console.log('after changing the value: ' + this.selectedRecord.label);
-                
-                
                 this.showDropdown = false;
                 this.showPill = true;
                 this.onEditPill = false;
@@ -117,21 +111,11 @@ export default class CustomLookup extends LightningElement {
 
     @api handleEditLookup(accountId, accountName){
         console.log('id:'+accountId + ' Name:'+accountName);
-        //this.selectedRecord.label = 'aaaaxxxxx';
-        //this.showPill = true;
-        ////this.value = accountId;
+
         this.onEditPill = true;
-        //this.selectItem(this);
         this.accountId = accountId;
         this.accountName = accountName;
         this.showDropdown = false;
-        //this.searchString = accountName;
-        //this.fetchData();
-        //this.selectedRecord.label = accountName;
-        //this.selectedRecord.value = accountId;
-        //this.showPill = true;
-        
-        //this.searchString = '';
         
        console.log('handleEditLookup in child called');
     }

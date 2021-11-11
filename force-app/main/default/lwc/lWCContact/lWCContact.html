@@ -1,0 +1,56 @@
+<template>
+    <lightning-layout>
+
+        <lightning-layout-item size='6'>
+
+            <lightning-card class="slds-p-around_xx-small slds-form_stacked">
+                <legend id="newcontactform" class="slds-text-heading_small
+                                                       slds-p-vertical_medium">
+                    Add Contact
+                </legend>
+                <lightning-input name="id" type="text" label="Id" disabled="true" value={contact.Id}
+                    onchange={handleChange}> </lightning-input>
+                <lightning-input name="firstName" type="text" label="Name" value={contact.LastName}
+                    onchange={handleChange}> </lightning-input>
+                <!--Custom lookup component here-->
+
+                <!--Custom lookup component, Child-->
+                <c-custom-lookup object-name="Account" field-name="Name" label="Account Search"
+                    placeholder="search Account" icon-name="standard:account" onaccid={handleAccId} required="true">
+                </c-custom-lookup>
+
+
+
+                <!------------------------>
+                <lightning-input class="slds-p-around_small" name="Email" type="email" label="Email"
+                    value={contact.Email} onchange={handleChange}> </lightning-input>
+                <lightning-input name="Phone" type="number" label="Phone" value={contact.Phone} onchange={handleChange}>
+                </lightning-input>
+                <lightning-combobox name="status" label="Status" value={contact.Status__c} placeholder="Select Status"
+                    options={statusPickListValues} onchange={handleChange}></lightning-combobox>
+
+                <p>Selected value is: {contact.Status__c}</p>
+                <lightning-button class="slds-p-around_small" variant="brand" type="submit" label="Save Contact"
+                    onclick={saveContact}>
+                </lightning-button>
+                <lightning-button class="slds-p-around_small" variant="brand" type="submit" label="Clear"
+                    onclick={handleClearForm}>
+                </lightning-button>
+            </lightning-card>
+        </lightning-layout-item>
+    </lightning-layout>
+
+    <lightning-button class="slds-m-top_small" variant="brand" label="Refresh List" onclick={handleRefreshList}>
+    </lightning-button>
+
+
+    <!--List View Component, Child-->
+    <lightning-card>
+
+        <c-contacts-list-view oneditaction={editActionHandler}>
+            class="slds-show slds-is-relative"
+        </c-contacts-list-view>
+
+    </lightning-card>
+
+</template>

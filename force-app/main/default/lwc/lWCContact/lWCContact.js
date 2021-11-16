@@ -29,6 +29,8 @@ export default class lWCContact extends LightningElement {
     }
 
     handleChange(event) {
+        this.contact[event.target.name]=event.detail.value;
+        /*
         if(event.target.name == 'firstName')
         {
             this.contact.LastName = event.detail.value;
@@ -49,14 +51,21 @@ export default class lWCContact extends LightningElement {
             this.contact.Id = event.detail.value;
             console.log('id:'+this.contact.Id);
         }
+        */
     }
 
     saveContact(){
 
-        console.log('hello');
-        console.log('contact: ' + this.contact.LastName);
-        console.log('helloAfter');
-        console.log('before saving: '+ this.contact.LastName);
+        console.log('contact is: '+this.contact.LastName)
+        console.log('contact is: '+this.contact.Email)
+        console.log('contact is: '+this.contact.Phone)
+        console.log('contact is: '+this.contact.Status__c)
+        
+        //console.log('hello');
+        //console.log('contact: ' + this.contact.LastName);
+       // console.log('helloAfter');
+        //console.log('before saving: '+ this.contact.LastName);
+        /*
         createContact({
             contactObject:this.contact
         })
@@ -69,6 +78,7 @@ export default class lWCContact extends LightningElement {
         .catch(error => {
             console.log(error);
         });;
+        */
     }
     handleRefreshList(){
         this.template.querySelector('c-contacts-list-view').handleRefreshList();
@@ -109,7 +119,7 @@ export default class lWCContact extends LightningElement {
         this.dispatchEvent(evt);
     }
 
-    editActionHandler(event){
+    async editActionHandler(event){
         console.log('parent action handler');
         let contact = event.detail;
         this.contact.LastName = contact.Name;
@@ -119,6 +129,17 @@ export default class lWCContact extends LightningElement {
         this.contact.Status__c = contact.Status__c;
         this.contact.AccountId = contact.AccountId;
         console.log('status: '+contact.Status__c)
+        
+
+        /*
+        try{
+            const result = await getAccountName({accountId:accountId});
+            this.template.querySelector('c-custom-lookup').handleEditLookup(this.contact.AccountId, result);
+        }
+        catch(err){
+            console.log(err);
+        }
+        */
         
         async function doFetchAccountName(accountId, _this){
             try{
@@ -131,5 +152,6 @@ export default class lWCContact extends LightningElement {
             }
         }
         doFetchAccountName(contact.AccountId,this);
+        
     }
 }

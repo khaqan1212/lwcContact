@@ -10,7 +10,7 @@
                 </legend>
                 <lightning-input name="id" type="text" label="Id" disabled="true" value={contact.Id}
                     onchange={handleChange}> </lightning-input>
-                <lightning-input name="firstName" type="text" label="Name" value={contact.LastName}
+                <lightning-input name="LastName" type="text" label="Name" value={contact.LastName}
                     onchange={handleChange}> </lightning-input>
                 <!--Custom lookup component here-->
 
@@ -23,7 +23,7 @@
                     value={contact.Email} onchange={handleChange}> </lightning-input>
                 <lightning-input name="Phone" type="number" label="Phone" value={contact.Phone} onchange={handleChange}>
                 </lightning-input>
-                <lightning-combobox name="status" label="Status" value={contact.Status__c} placeholder="Select Status"
+                <lightning-combobox name="Status__c" label="Status" value={contact.Status__c} placeholder="Select Status"
                     options={statusPickListValues} onchange={handleChange}></lightning-combobox>
 
                 <p>Selected value is: {contact.Status__c}</p>

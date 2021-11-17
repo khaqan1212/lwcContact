@@ -12,60 +12,14 @@ export default class lWCContact extends LightningElement {
     statusPickListValues = [];
 
     connectedCallback(){
-        getStatusPickListValues()
-            .then(result => {
-                console.log(result);
-                for(let i = 0; i < result.length; i++){
-                    const option = {
-                        label : result[i],
-                        value : result[i]
-                    };
-                    this.statusPickListValues = [...this.statusPickListValues, option];
-                }
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        this.callGetStatusPickListValues();
     }
 
     handleChange(event) {
         this.contact[event.target.name]=event.detail.value;
-        /*
-        if(event.target.name == 'firstName')
-        {
-            this.contact.LastName = event.detail.value;
-            console.log('nameObje:'+this.contact.LastName);
-        }
-        else if(event.target.name == 'Email')
-        {
-            this.contact.Email = event.detail.value;
-            console.log('emailObject:'+this.contact.Email);
-        }
-        else if(event.target.name == 'status'){
-            this.contact.Status__c = event.detail.value;
-            console.log('statusObje:'+this.contact.Status__c);
-        }else if(event.target.name == 'Phone'){
-            this.contact.Phone = event.detail.value;
-            console.log('phoneObj:'+this.contact.Phone);
-        }else if(event.target.name == 'id'){
-            this.contact.Id = event.detail.value;
-            console.log('id:'+this.contact.Id);
-        }
-        */
     }
 
-    saveContact(){
-
-        console.log('contact is: '+this.contact.LastName)
-        console.log('contact is: '+this.contact.Email)
-        console.log('contact is: '+this.contact.Phone)
-        console.log('contact is: '+this.contact.Status__c)
-        
-        //console.log('hello');
-        //console.log('contact: ' + this.contact.LastName);
-       // console.log('helloAfter');
-        //console.log('before saving: '+ this.contact.LastName);
-        /*
+    saveContact(){ 
         createContact({
             contactObject:this.contact
         })
@@ -78,7 +32,7 @@ export default class lWCContact extends LightningElement {
         .catch(error => {
             console.log(error);
         });;
-        */
+        
     }
     handleRefreshList(){
         this.template.querySelector('c-contacts-list-view').handleRefreshList();
@@ -130,28 +84,30 @@ export default class lWCContact extends LightningElement {
         this.contact.AccountId = contact.AccountId;
         console.log('status: '+contact.Status__c)
         
-
-        /*
         try{
-            const result = await getAccountName({accountId:accountId});
+            const result = await getAccountName({accountId:this.contact.AccountId});
             this.template.querySelector('c-custom-lookup').handleEditLookup(this.contact.AccountId, result);
         }
         catch(err){
-            console.log(err);
-        }
-        */
-        
-        async function doFetchAccountName(accountId, _this){
-            try{
-                const result = await getAccountName({accountId:accountId});
-                console.log('Account Name is: ' + result);
-                _this.template.querySelector('c-custom-lookup').handleEditLookup(_this.contact.AccountId, result);
-            } 
-            catch(err){
-                console.log(err);
-            }
-        }
-        doFetchAccountName(contact.AccountId,this);
-        
+            console.log('Error: '+err);
+        }    
+    }
+
+
+    callGetStatusPickListValues(){
+        getStatusPickListValues()
+            .then(result => {
+                console.log(result);
+                for(let i = 0; i < result.length; i++){
+                    const option = {
+                        label : result[i],
+                        value : result[i]
+                    };
+                    this.statusPickListValues = [...this.statusPickListValues, option];
+                }
+            })
+            .catch(error => {
+                console.log('Error: '+error);
+            });
     }
 }

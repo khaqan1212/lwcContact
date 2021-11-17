@@ -27,15 +27,7 @@ export default class ContactsListView extends LightningElement {
 
     
     connectedCallback(){
-        fetchAllContacts()
-        .then(result => {
-            this.loaded = true;
-            this.data = result;
-        })
-        .catch(error => {
-            this.loaded = true;
-            this.error = error;
-        });
+        this.callFetchAllContacts();
     }
 
     handleRowAction(event)
@@ -79,5 +71,17 @@ export default class ContactsListView extends LightningElement {
         this.dispatchEvent(new CustomEvent('editaction',{
             detail:row
         }));
+    }
+
+    callFetchAllContacts(){
+        fetchAllContacts()
+        .then(result => {
+            this.loaded = true;
+            this.data = result;
+        })
+        .catch(error => {
+            this.loaded = true;
+            this.error = error;
+        });
     }
 }

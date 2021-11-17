@@ -112,6 +112,7 @@ export default class CustomLookup extends LightningElement {
     @api handleEditLookup(accountId, accountName){
         console.log('id:'+accountId + ' Name:'+accountName);
 
+        this.showPill = true;
         this.onEditPill = true;
         this.accountId = accountId;
         this.accountName = accountName;

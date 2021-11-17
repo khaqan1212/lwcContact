@@ -13,24 +13,34 @@
             <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open">
                 <!-- Search Input Box -->
                 <template if:false={showPill}>
-                    <lightning-input onchange={searchRecords} onclick={showRecords} onblur={blurEvent} class="inputBox" type="search" autocomplete="off" variant="label-hidden" placeholder={placeholder} value={searchString}></lightning-input>
-                    <div if:true={showSpinner}>
-                        <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
-                    </div>
+                    <template if:false={onEditPill}>
+                        
+                        <lightning-input onchange={searchRecords} onclick={showRecords} onblur={blurEvent} class="inputBox" type="search" autocomplete="off" variant="label-hidden" placeholder={placeholder} value={searchString}></lightning-input>
+                        <div if:true={showSpinner}>
+                            <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+                        </div>
+                    </template>
                 </template>
                 
-
-                <div if:true={onEditPill} class="pillContainer">
-                    <lightning-pill label={accountName} name={accountId} onremove={removeItem}>
-                        <lightning-icon icon-name={iconName} alternative-text="icon" size="x-small"></lightning-icon>
-                    </lightning-pill>
-                </div>
                 <!-- Selected Value Pill -->
-                <div if:true={showPill} class="pillContainer">
-                    <lightning-pill class="fullWidth" label={selectedRecord.label} name={selectedRecord.value} onremove={removeItem}>
+                <template if:false={onEditPill}>
+                    <div if:true={showPill} class="pillContainer slds-p-around_small">
+                        <lightning-pill class="fullWidth" label={selectedRecord.label} name={selectedRecord.value} onremove={removeItem}>
+                            <lightning-icon icon-name={iconName} alternative-text="icon" size="x-small"></lightning-icon>
+                        </lightning-pill>
+                    
+                    </div>
+                </template>
+
+                <div if:true={onEditPill} class="pillContainer slds-p-around_small">
+                    
+                    <lightning-pill class="fullWidth" label={accountName} name={accountId} onremove={removeItem}>
                         <lightning-icon icon-name={iconName} alternative-text="icon" size="x-small"></lightning-icon>
                     </lightning-pill>
                 </div>
+                
+                
+
                 
                 
                     
